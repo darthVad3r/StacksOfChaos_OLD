@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using SOCFrontEnd.Server;
 
-namespace SOCFrontEnd.Server.Controllers
+namespace SOCDataManager.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -13,10 +14,7 @@ namespace SOCFrontEnd.Server.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
+        public WeatherForecastController(ILogger<WeatherForecastController> logger) => _logger = logger;
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
