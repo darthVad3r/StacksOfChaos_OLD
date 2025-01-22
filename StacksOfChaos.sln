@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOCDataManager", "SOCFrontE
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "SOCUI", "SOCFrontEnd\socfrontend.client\SOCUI.esproj", "{F84C0858-B009-4A7B-BA45-BC28B539364B}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SOCData", "SOCData\SOCData.sqlproj", "{D66AABDD-8431-4702-A9A4-C3AEEE5CE152}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,12 @@ Global
 		{F84C0858-B009-4A7B-BA45-BC28B539364B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F84C0858-B009-4A7B-BA45-BC28B539364B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F84C0858-B009-4A7B-BA45-BC28B539364B}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D66AABDD-8431-4702-A9A4-C3AEEE5CE152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66AABDD-8431-4702-A9A4-C3AEEE5CE152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66AABDD-8431-4702-A9A4-C3AEEE5CE152}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D66AABDD-8431-4702-A9A4-C3AEEE5CE152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66AABDD-8431-4702-A9A4-C3AEEE5CE152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66AABDD-8431-4702-A9A4-C3AEEE5CE152}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
