@@ -2,7 +2,7 @@
 
 namespace SOCDataManager.Models
 {
-    public class Rootobject
+    public class Author
     {
         [JsonProperty("numFound")]
         public int NumFound { get; set; }
