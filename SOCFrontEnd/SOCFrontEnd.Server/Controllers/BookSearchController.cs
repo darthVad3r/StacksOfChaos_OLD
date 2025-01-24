@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Services;
 using Newtonsoft.Json;
 using SOCDataManager.Models;
 using System.Net.Http.Headers;
@@ -34,14 +35,21 @@ namespace SOCDataManager.Controllers
                 client.DefaultRequestHeaders.Add("User-Agent", "SOCFrontEnd");
                 client.BaseAddress = new Uri("https://openlibrary.org/");
 
-                var response = await client.GetFromJsonAsync<Author>($"search.json?q={authorName}");
+                var response = await client.GetAsync($"search.json?q={authorName}");
+                response.EnsureSuccessStatusCode();
 
-                if (response == null || response.Docs == null || response.Docs.Length == 0)
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var author = JsonConvert.DeserializeObject<Author>(jsonResponse);
+
+                if (author == null || author.Docs == null || author.Docs.Length == 0)
                 {
-                    return NotFound("No authors found.");
+                    _logger.LogWarning("Author not found");
+                    return NotFound("Author not found");
                 }
 
-                return Ok(response.Docs[0].AuthorName);
+                Console.WriteLine(author.Docs[0].AuthorName);
+
+                return Ok(author.Docs[0].AuthorName);
 
             }
             catch (Exception ex)
