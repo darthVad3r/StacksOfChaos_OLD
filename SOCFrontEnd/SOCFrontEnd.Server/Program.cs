@@ -1,5 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
-using SOCDataManager.Controllers;
+using SOCDataManager.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +8,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHttpClient<BookSearchController>();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<BookSearchService>();
 builder.Services.AddLogging();
 
 var app = builder.Build();

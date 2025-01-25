@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Services;
 using Newtonsoft.Json;
 using SOCDataManager.Models;
 using System.Net.Http.Headers;
+using SOCDataManager.Services;
 
 namespace SOCDataManager.Controllers
 {
@@ -11,12 +12,12 @@ namespace SOCDataManager.Controllers
     public class BookSearchController : ControllerBase
     {
         private readonly ILogger<BookSearchController> _logger;
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly BookSearchService _bookSearchService;
 
-        public BookSearchController(ILogger<BookSearchController> logger, IHttpClientFactory httpClientFactory)
+        public BookSearchController(ILogger<BookSearchController> logger, BookSearchService bookSearchService)
         {
             _logger = logger;
-            _httpClientFactory = httpClientFactory;
+            _bookSearchService = bookSearchService;
         }
 
         [HttpGet(Name = "SearchByAuthor")]
@@ -30,16 +31,7 @@ namespace SOCDataManager.Controllers
                     return BadRequest("Author name cannot be null or whitespace.");
                 }
 
-                using var client = _httpClientFactory.CreateClient();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("User-Agent", "SOCFrontEnd");
-                client.BaseAddress = new Uri("https://openlibrary.org/");
-
-                var response = await client.GetAsync($"search.json?q={authorName}");
-                response.EnsureSuccessStatusCode();
-
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var author = JsonConvert.DeserializeObject<Author>(jsonResponse);
+                var author = await _bookSearchService.GetAuthorDetailsAsync(authorName);
 
                 if (author == null || author.Docs == null || author.Docs.Length == 0)
                 {
@@ -47,9 +39,10 @@ namespace SOCDataManager.Controllers
                     return NotFound("Author not found");
                 }
 
-                Console.WriteLine(author.Docs[0].AuthorName);
+                var authorNameOutput = author.Docs[0].AuthorName;
+                Console.WriteLine(authorNameOutput);
 
-                return Ok(author.Docs[0].AuthorName);
+                return Ok(authorNameOutput);
 
             }
             catch (Exception ex)
